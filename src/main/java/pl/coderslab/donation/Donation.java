@@ -34,4 +34,5 @@ public class Donation {
     LocalDate pickUpDate;
     LocalTime pickUpTime;
     String pickUpComment;
+    String phoneNumber;
 }
