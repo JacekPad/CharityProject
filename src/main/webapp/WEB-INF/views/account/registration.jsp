@@ -5,9 +5,9 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>Document</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>"/>
 </head>
@@ -18,22 +18,24 @@
 
 <section class="login-page">
     <h2>Załóż konto</h2>
-    <form>
+    <form:form modelAttribute="user" method="post">
         <div class="form-group">
-            <input type="email" name="email" placeholder="Email" />
+            <form:input path="email" placeholder="Email"/>
+            <form:errors path="email"/>
         </div>
         <div class="form-group">
-            <input type="password" name="password" placeholder="Hasło" />
+            <form:input type="password" path="password" placeholder="Hasło"/>
+            <form:errors path="password"/>
         </div>
         <div class="form-group">
-            <input type="password" name="password2" placeholder="Powtórz hasło" />
+            <input type="password" name="password2" placeholder="Powtórz hasło"/>
         </div>
 
         <div class="form-group form-group--buttons">
             <a href="${pageContext.request.contextPath}/login" class="btn btn--without-border">Zaloguj się</a>
             <button class="btn" type="submit">Załóż konto</button>
         </div>
-    </form>
+        </form:form>
 </section>
 
 <jsp:include page="../constants/footer.jsp"/>
