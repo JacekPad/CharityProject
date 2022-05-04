@@ -28,20 +28,21 @@ public class DonationController {
 
     @GetMapping("/add")
     public String addDonationForm(Model model) {
-
-        model.addAttribute("donation",new Donation());
-        model.addAttribute("categories",categoryRepository.findAll());
-        model.addAttribute("institutions",institutionRepository.findAll());
-
+        model.addAttribute("donation", new Donation());
+        model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("institutions", institutionRepository.findAll());
         return "/donation/donationForm";
     }
 
+    //    Validation later?
     @PostMapping("/add")
-    @ResponseBody   //    delete this later
     public String addDonationConfirmation(@Valid Donation donation, BindingResult result, Model model) {
         donationRepository.save(donation);
-
-        return "done";
+        return "redirect:/donation/confirmation";
     }
 
+    @GetMapping("/confirmation")
+    public String addDonationConfirmationPage() {
+        return "/donation/donationFormConfirmation";
+    }
 }

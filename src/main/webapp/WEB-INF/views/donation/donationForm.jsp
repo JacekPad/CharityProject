@@ -155,15 +155,13 @@
                     <li>
                         <span class="icon icon-bag"></span>
                         <span id="summaryQuantity" class="summary--text">
-                                Java script ?
+                                Wpisz ilość worków
                             </span>
                     </li>
 
                     <li>
                         <span class="icon icon-hand"></span>
-                        <span id="summaryInstitution" class="summary--text">
-                                Java script?
-                            </span>
+                        <span id="summaryInstitution" class="summary--text">Wybierz fundacje</span>
                     </li>
                 </ul>
                 </div>
@@ -171,19 +169,19 @@
                     <div class="form-section--column">
                         <h4>Adres odbioru:</h4>
                         <ul>
-                            <li id="summaryStreet">Ulica JS?</li>
-                            <li id="summaryCity">Miasto JS?</li>
-                            <li id="summaryZipCode">ZIP CODE JS?</li>
-                            <li id="summaryPhone">PHONE JS?</li>
+                            <li id="summaryStreet"></li>
+                            <li id="summaryCity"></li>
+                            <li id="summaryZipCode"></li>
+                            <li id="summaryPhone"></li>
                         </ul>
                     </div>
 
                     <div class="form-section--column">
                         <h4>Termin odbioru:</h4>
                         <ul>
-                            <li id="summaryDate">DATA JS?</li>
-                            <li id="summaryTime">TIME JS?</li>
-                            <li id="summaryComment">COMMENTS JS?</li>
+                            <li id="summaryDate"></li>
+                            <li id="summaryTime"></li>
+                            <li id="summaryComment"></li>
                         </ul>
                     </div>
                 </div>

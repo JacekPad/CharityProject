@@ -20,34 +20,36 @@ institutionRadioButton.forEach(button => {
         let description = label.querySelector(".description").querySelector(".title").innerHTML;
 
         summaryButton.addEventListener("click", event2 => {
-            //quantity summary
-            let quantity = checkQuantity();
-            if (quantity == 1) {
-                summaryQuantity.innerHTML = quantity + " worek";
-            } else if (quantity > 1 && quantity < 5) {
-                summaryQuantity.innerHTML = quantity + " worki";
-            } else {
-                summaryQuantity.innerHTML = quantity + " worków";
-            }
-            //Institution summary
             summaryInstitution.innerHTML = "Dla: " + description;
-
-        //    Address check
-            summaryStreet.innerHTML = checkStreet();
-            summaryCity.innerHTML = checkCity();
-            summaryZipCode.innerHTML = checkZipCode();
-            summaryPhone.innerHTML = checkPhone();
-        //    Delivery check
-            summaryDate.innerHTML = checkDate();
-            summaryTime.innerHTML = checkTime();
-            summaryComment.innerHTML = checkComment();
         })
-
     })
 })
 
+//summary data
+summaryButton.addEventListener("click", event2 => {
+    //quantity summary
+    let quantity = checkQuantity();
+    if (quantity == 1) {
+        summaryQuantity.innerHTML = quantity + " worek";
+    } else if (quantity > 1 && quantity < 5) {
+        summaryQuantity.innerHTML = quantity + " worki";
+    } else if (quantity >= 5) {
+        summaryQuantity.innerHTML = quantity + " worków";
+    }
+    //    Address check
+    summaryStreet.innerHTML = checkStreet();
+    summaryCity.innerHTML = checkCity();
+    summaryZipCode.innerHTML = checkZipCode();
+    summaryPhone.innerHTML = checkPhone();
+    //    Delivery check
+    summaryDate.innerHTML = checkDate();
+    summaryTime.innerHTML = checkTime();
+    summaryComment.innerHTML = checkComment();
+})
+
+
 function checkQuantity() {
-    return document.getElementById("quantity").value
+    return document.getElementById("quantity").value;
 }
 
 function checkStreet() {
@@ -75,5 +77,9 @@ function checkTime() {
 }
 
 function checkComment() {
+    if (document.getElementById("comment").value == "") {
+        return "brak komentarza"
+    }
     return document.getElementById("comment").value;
 }
+
