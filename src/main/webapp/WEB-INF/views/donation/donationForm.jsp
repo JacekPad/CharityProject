@@ -47,6 +47,7 @@
             <%--        </div>--%>
 
             <%--        TO WYGLADA TAK JAK MA ALE NIE DZIALA--%>
+
         <div data-step="1" class="active">
             <h3>Zaznacz co chcesz oddać:</h3>
             <c:forEach items="${categories}" var="category">
@@ -68,7 +69,7 @@
             <div class="form-group form-group--inline">
                 <label>
                     Liczba 60L worków:
-                    <form:input path="quantity" type="number" min="1"/>
+                    <form:input id="quantity" path="quantity" type="number" min="1"/>
                 </label>
             </div>
             <div class="form-group form-group--buttons">
@@ -81,7 +82,7 @@
             <c:forEach items="${institutions}" var="institution">
                 <div class="form-group form-group--checkbox">
                     <label>
-                        <form:radiobutton path="institution" value="${institution.id}"/>
+                        <form:radiobutton cssClass="radioDonation" path="institution" value="${institution.id}"/>
                         <span class="checkbox radio"></span>
                         <span class="description">
                         <div class="title">
@@ -106,19 +107,19 @@
                 <div class="form-section--column">
                     <h4>Adres odbioru</h4>
                     <div class="form-group form-group--inline">
-                        <label> Ulica <form:input path="street"/></label>
+                        <label> Ulica <form:input id="street" path="street"/></label>
                     </div>
 
                     <div class="form-group form-group--inline">
-                        <label> Miasto <form:input path="city"/></label>
+                        <label> Miasto <form:input id="city" path="city"/></label>
                     </div>
 
                     <div class="form-group form-group--inline">
-                        <label> Kod pocztowy: <form:input path="zipCode"/></label>
+                        <label> Kod pocztowy: <form:input id="zipCode" path="zipCode"/></label>
                     </div>
 
                     <div class="form-group form-group--inline">
-                        <label> Numer telefonu: <form:input path="phoneNumber"/></label>
+                        <label> Numer telefonu: <form:input id="phone" path="phoneNumber"/></label>
                     </div>
                 </div>
 
@@ -126,21 +127,21 @@
                     <h4> Termin odbioru </h4>
 
                     <div class="form-group form-group--inline">
-                        <label> Data <form:input path="pickUpDate" type="date"/></label>
+                        <label> Data <form:input id="date" path="pickUpDate" type="date"/></label>
                     </div>
 
                     <div class="form-group form-group--inline">
-                        <label> Godzina <form:input path="pickUpTime" type="time" min="9:30:00" max="16:00:00"/></label>
+                        <label> Godzina <form:input path="pickUpTime" id="time" type="time" min="9:30:00" max="16:00:00"/></label>
                     </div>
 
                     <div class="form-group form-group--inline">
-                        <label> Uwagi dla kuriera <form:textarea path="pickUpComment" rows="5"/></label>
+                        <label> Uwagi dla kuriera <form:textarea id="comment" path="pickUpComment" rows="5"/></label>
                     </div>
                 </div>
             </div>
             <div class="form-group form-group--buttons">
                 <button type="button" class="btn prev-step">Wstecz</button>
-                <button type="button" class="btn next-step">Dalej</button>
+                <button id="summaryButton" type="button" class="btn next-step">Dalej</button>
             </div>
         </div>
 
@@ -153,14 +154,14 @@
                 <ul>
                     <li>
                         <span class="icon icon-bag"></span>
-                        <span class="summary--text">
+                        <span id="summaryQuantity" class="summary--text">
                                 Java script ?
                             </span>
                     </li>
 
                     <li>
                         <span class="icon icon-hand"></span>
-                        <span class="summary--text">
+                        <span id="summaryInstitution" class="summary--text">
                                 Java script?
                             </span>
                     </li>
@@ -170,19 +171,19 @@
                     <div class="form-section--column">
                         <h4>Adres odbioru:</h4>
                         <ul>
-                            <li>Ulica JS?</li>
-                            <li>Miasto JS?</li>
-                            <li>ZIP CODE JS?</li>
-                            <li>PHONE JS?</li>
+                            <li id="summaryStreet">Ulica JS?</li>
+                            <li id="summaryCity">Miasto JS?</li>
+                            <li id="summaryZipCode">ZIP CODE JS?</li>
+                            <li id="summaryPhone">PHONE JS?</li>
                         </ul>
                     </div>
 
                     <div class="form-section--column">
                         <h4>Termin odbioru:</h4>
                         <ul>
-                            <li>DATA JS?</li>
-                            <li>TIME JS?</li>
-                            <li>COMMENTS JS?</li>
+                            <li id="summaryDate">DATA JS?</li>
+                            <li id="summaryTime">TIME JS?</li>
+                            <li id="summaryComment">COMMENTS JS?</li>
                         </ul>
                     </div>
                 </div>
@@ -196,4 +197,5 @@
     </form:form>
     </div>
 </section>
+<script src="${pageContext.request.contextPath}/resources/js/donationForm.js"></script>
 <jsp:include page="../constants/footer.jsp"/>

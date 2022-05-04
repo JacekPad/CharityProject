@@ -39,9 +39,9 @@ public class DonationController {
     @PostMapping("/add")
     @ResponseBody   //    delete this later
     public String addDonationConfirmation(@Valid Donation donation, BindingResult result, Model model) {
+        donationRepository.save(donation);
 
-
-        return "/donation/donationConfirmation";
+        return "done";
     }
 
 }
