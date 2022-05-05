@@ -25,7 +25,6 @@ public class SpringDataUserDetailsService implements UserDetailsService {
         User user = userService.findByEmail(email);
         System.out.println(user);
         if (user == null) {
-            System.out.println("DUPA");
             throw new UsernameNotFoundException(email);
         }
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();

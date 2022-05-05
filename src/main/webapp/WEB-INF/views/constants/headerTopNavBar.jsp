@@ -8,11 +8,13 @@
     <ul class="nav--actions">
         <sec:authorize access="isAuthenticated()">
             <li class="logged-user">
-                Witaj
-                    <%--                <sec:authentication property="principal.email"/>--%>
+                Witaj <sec:authentication property="principal.username"/>
                 <ul class="dropdown">
                     <li><a href="#">Profil</a></li>
                     <li><a href="#">Moje zbiórki</a></li>
+                    <sec:authorize access="hasRole('ADMIN')">
+                    <li><a href="${pageContext.request.contextPath}/admin/user_list">Lista użytkowników</a></li>
+                    </sec:authorize>
                     <li><a href="#" onclick="document.logoutForm.submit()">Wyloguj</a></li>
                     <li>
                         <form name="logoutForm" method="post" action="<c:url value="/logout"/>">
