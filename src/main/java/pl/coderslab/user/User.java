@@ -23,10 +23,12 @@ public class User {
 
     @Email
     @NotEmpty
+    @Column(unique = true)
     private String email;
     private String password;
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
-
+    private String name;
+    private String surname;
 
 }

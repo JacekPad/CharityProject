@@ -6,6 +6,7 @@ import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 import pl.coderslab.category.Category;
 import pl.coderslab.institution.Institution;
+import pl.coderslab.user.User;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -23,6 +24,8 @@ public class Donation {
     private Long id;
     private Integer quantity;
 
+    @ManyToOne
+    private User user;
     @ManyToMany
     private List<Category> categories;
 

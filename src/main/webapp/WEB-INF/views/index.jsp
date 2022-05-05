@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:include page="../views/constants/headerMain.jsp"/>
@@ -47,8 +48,12 @@
             <p>kurier przyjedzie w dogodnym terminie</p>
         </div>
     </div>
-
-    <a href="#" class="btn btn--large">Załóż konto</a>
+<sec:authorize access="!isAuthenticated()">
+    <a href="${pageContext.request.contextPath}/registration" class="btn btn--large">Załóż konto</a>
+</sec:authorize>
+    <sec:authorize access="isAuthenticated()">
+        <a href="${pageContext.request.contextPath}/donation/add" class="btn btn--large">Oddaj rzeczy</a>
+    </sec:authorize>
 </section>
 
 <section id="about" class="about-us">

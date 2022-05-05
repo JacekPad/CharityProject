@@ -13,7 +13,7 @@
 </head>
 <body>
 <header class="header--form-page">
-    <jsp:include page="headerTopNavBarLogged.jsp"/>
+    <jsp:include page="headerTopNavBar.jsp"/>
     <div class="slogan container container--90">
         <div class="slogan--item">
             <h1>

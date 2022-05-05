@@ -24,6 +24,14 @@
             <form:errors path="email"/>
         </div>
         <div class="form-group">
+            <form:input path="name" placeholder="Imie"/>
+            <form:errors path="name"/>
+        </div>
+        <div class="form-group">
+            <form:input path="surname" placeholder="Nazwisko"/>
+            <form:errors path="surname"/>
+        </div>
+        <div class="form-group">
             <form:input type="password" path="password" placeholder="Hasło"/>
             <form:errors path="password"/>
         </div>
