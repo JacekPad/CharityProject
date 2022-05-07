@@ -53,7 +53,7 @@ public class AccountController {
             return "/account/registration";
         }
         userService.saveAsUser(user);
-        return "redirect:/";
+        return "redirect:/login";
     }
 
     @GetMapping("/login")

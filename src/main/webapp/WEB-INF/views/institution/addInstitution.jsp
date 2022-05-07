@@ -20,11 +20,11 @@
     <h2>Załóż konto</h2>
     <form:form modelAttribute="institution" action="/admin/edit_institution" method="post">
         <div class="form-group">
-            <form:input path="name" placeholder="Nazwa instytucji"/>
+            <form:textarea path="name" placeholder="Nazwa instytucji"/>
             <form:errors path="name"/>
         </div>
         <div class="form-group">
-            <form:input path="description" placeholder="Opis instytucji"/>
+            <form:textarea path="description" placeholder="Opis instytucji"/>
             <form:errors path="description"/>
         </div>
         <div class="form-group form-group--buttons">

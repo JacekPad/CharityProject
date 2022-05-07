@@ -1,5 +1,6 @@
 package pl.coderslab.user;
 
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,6 +28,9 @@ public class UserController {
         this.userService = userService;
     }
 
+
+    //    ADMIN VIEWS
+
     @GetMapping("/admin/dashboard")
     public String adminDashboard() {
         return "admin/dashboard";
@@ -50,6 +54,9 @@ public class UserController {
         return "/admin/institutionList";
     }
 
+
+//                                ADMIN CRUD
+
     @GetMapping("/admin/create_admin")
     public String createAdmin(Model model) {
         model.addAttribute("user", new User());
@@ -62,7 +69,7 @@ public class UserController {
         List<String> allEmails = userRepository.findAllEmails();
         for (String email : allEmails) {
             if (email.equals(user.getEmail())) {
-                result.rejectValue("email","error.sameEmail","Użytkownik z takim e-mailem juz istnieje");
+                result.rejectValue("email", "error.sameEmail", "Użytkownik z takim e-mailem juz istnieje");
                 return "/admin/createAdmin";
             }
         }
@@ -91,19 +98,19 @@ public class UserController {
     }
 
     @GetMapping("/admin/edit_admin/{id}")
-    public String editAdmin(@PathVariable Long id, Model model){
+    public String editAdmin(@PathVariable Long id, Model model) {
         User admin = userRepository.getById(id);
         FakeUser fakeUser = new FakeUser();
         fakeUser.setEmail(admin.getEmail());
         fakeUser.setName(admin.getName());
         fakeUser.setSurname(admin.getSurname());
         fakeUser.setId(admin.getId());
-        model.addAttribute("fakeUser",fakeUser);
+        model.addAttribute("fakeUser", fakeUser);
         return "/admin/editAdmin";
     }
 
     @PostMapping("/admin/edit_admin")
-    public String editAdminForm(@Valid FakeUser fakeUser, BindingResult result, Model model, @RequestParam String password2) {
+    public String editAdminForm(@Valid FakeUser fakeUser, BindingResult result, @RequestParam String password2) {
 
         //Check blank password
         if (fakeUser.getPassword().isBlank()) {
@@ -126,5 +133,42 @@ public class UserController {
         editedAdmin.setPassword(fakeUser.getPassword());
         userService.saveAsAdmin(editedAdmin);
         return "redirect:/admin/admin_list";
+    }
+
+
+//                    ADMIN - USER CRUD
+
+    @GetMapping("/admin/edit_user/{id}")
+    public String editUser(@PathVariable Long id, Model model) {
+        User originalUser = userRepository.getById(id);
+
+        FakeUser fakeUser = new FakeUser();
+        fakeUser.setId(originalUser.getId());
+        fakeUser.setName(originalUser.getName());
+        fakeUser.setSurname(originalUser.getSurname());
+        fakeUser.setEmail(originalUser.getEmail());
+        model.addAttribute("fakeUser",fakeUser);
+
+        return "/user/adminEditUser";
+    }
+
+    @PostMapping("/admin/edit_user")
+    public String editUserForm(@Valid FakeUser fakeUser, BindingResult result) {
+        if (result.hasErrors()) {
+            return "/user/adminEditUser";
+        }
+
+        User editedUser = userRepository.getById(fakeUser.getId());
+        editedUser.setName(fakeUser.getName());
+        editedUser.setSurname(fakeUser.getSurname());
+        editedUser.setEmail(fakeUser.getEmail());
+        userRepository.save(editedUser);
+        return "redirect:/admin/user_list";
+    }
+
+    @GetMapping("/admin/delete_user/{id}")
+    public String deleteUser(@PathVariable Long id) {
+        userRepository.delete(userRepository.getById(id));
+        return "redirect:/admin/user_list";
     }
 }

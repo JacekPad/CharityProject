@@ -16,20 +16,24 @@
     <jsp:include page="../constants/headerTopNavBarAdmin.jsp"/>
 </header>
 
-<section class="login-page">
-    <h2>Załóż konto</h2>
-    <form:form modelAttribute="institution" action="/admin/edit_institution" method="post">
+<section class="login-page">/
+    <h2>Edytuj dane użytkownika</h2>
+    <form:form modelAttribute="fakeUser" action="/admin/edit_user" method="post">
         <div class="form-group">
-            <form:textarea  path="name" placeholder="Nazwa instytucji"/>
+            <form:input path="email" placeholder="Email"/>
+            <form:errors path="email"/>
+        </div>
+        <div class="form-group">
+            <form:input path="name" placeholder="Imie"/>
             <form:errors path="name"/>
         </div>
         <div class="form-group">
-            <form:textarea path="description" placeholder="Opis instytucji"/>
-            <form:errors path="description"/>
+            <form:input path="surname" placeholder="Nazwisko"/>
+            <form:errors path="surname"/>
         </div>
         <div class="form-group form-group--buttons">
-            <a href="${pageContext.request.contextPath}/admin/institution_list" class="btn btn--without-border">Anuluj edycje</a>
-            <button class="btn" type="submit">Edytuj instytucje</button>
+            <a href="${pageContext.request.contextPath}/admin/user_list" class="btn btn--without-border">Cofnij tworzenie</a>
+            <button class="btn" type="submit">Edytuj dane użytkownika</button>
         </div>
         <form:hidden path="id"/>
     </form:form>

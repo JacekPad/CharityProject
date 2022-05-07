@@ -48,9 +48,9 @@
                         </c:if>
                     </th>
                     <th style="padding: 0">
-                        <a class="table-link" href="#">Edytuj</a>
-                        <a class="table-link" href="#">Zablokuj</a>
-                        <a class="table-link" href="#">Usuń</a>
+                        <a class="table-link" href="/admin/edit_user/${user.id}">Edytuj</a>
+                        <a class="table-link" href="#">Zablokuj - TO DO FETCH</a>
+                        <a class="table-link" href="/admin/delete_user/${user.id}">Usuń</a>
                     </th>
                 </tr>
             </c:forEach>
