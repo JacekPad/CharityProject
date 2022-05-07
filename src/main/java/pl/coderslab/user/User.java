@@ -9,6 +9,7 @@ import pl.coderslab.security.Role;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
@@ -30,5 +31,12 @@ public class User {
     private Set<Role> roles;
     private String name;
     private String surname;
+    private LocalDate created;
+    private int enabled;
+    @PrePersist
+    public void prePersist() {
+        created = LocalDate.now();
+    }
+
 
 }

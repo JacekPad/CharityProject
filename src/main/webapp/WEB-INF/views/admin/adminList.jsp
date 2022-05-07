@@ -1,13 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>Document</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>"/>
 </head>
@@ -27,33 +27,29 @@
                 <th>Imie</th>
                 <th>Nazwisko</th>
                 <th>Stworzony</th>
-                <th>Aktywny</th>
                 <th>Akcje</th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${users}" var="user">
+            <c:forEach items="${admins}" var="admin">
                 <tr>
-                    <th>${user.id}</th>
-                    <th>${user.email}</th>
-                    <th>${user.name}</th>
-                    <th>${user.surname}</th>
-                    <th>${user.created}</th>
-                    <th>
-                        <c:if test="${user.enabled == 1}">
-                            Aktywny
-                        </c:if>
-                        <c:if test="${user.enabled == 0}">
-                            Nieaktywny
-                        </c:if>
-                    </th>
+                    <th>${admin.id}</th>
+                    <th>${admin.email}</th>
+                    <th>${admin.name}</th>
+                    <th>${admin.surname}</th>
+                    <th>${admin.created}</th>
+
                     <th style="padding: 0">
-                        <a class="table-link" href="#">Edytuj</a>
-                        <a class="table-link" href="#">Zablokuj</a>
-                        <a class="table-link" href="#">Usuń</a>
+                        <a class="table-link" href="/admin/edit_admin/${admin.id}">Edytuj</a>
+                        <a class="table-link" href="/admin/delete_admin/${admin.id}">Usuń</a>
                     </th>
                 </tr>
             </c:forEach>
+            <tr>
+                <th colspan="7">
+                    <a class="table-link" href="${pageContext.request.contextPath}/admin/create_admin">Dodaj nowego administratora</a>
+                </th>
+            </tr>
             </tbody>
         </table>
     </div>

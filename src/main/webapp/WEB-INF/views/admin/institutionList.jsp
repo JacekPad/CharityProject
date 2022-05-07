@@ -23,37 +23,26 @@
             <thead>
             <tr>
                 <th>ID</th>
-                <th>Email</th>
-                <th>Imie</th>
-                <th>Nazwisko</th>
-                <th>Stworzony</th>
-                <th>Aktywny</th>
+                <th>Nazwa instytucji</th>
                 <th>Akcje</th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${users}" var="user">
+            <c:forEach items="${institutions}" var="institution">
                 <tr>
-                    <th>${user.id}</th>
-                    <th>${user.email}</th>
-                    <th>${user.name}</th>
-                    <th>${user.surname}</th>
-                    <th>${user.created}</th>
-                    <th>
-                        <c:if test="${user.enabled == 1}">
-                            Aktywny
-                        </c:if>
-                        <c:if test="${user.enabled == 0}">
-                            Nieaktywny
-                        </c:if>
-                    </th>
+                    <th>${institution.id}</th>
+                    <th>${institution.name}</th>
                     <th style="padding: 0">
-                        <a class="table-link" href="#">Edytuj</a>
-                        <a class="table-link" href="#">Zablokuj</a>
-                        <a class="table-link" href="#">Usuń</a>
+                        <a class="table-link" href="/admin/edit_institution/${institution.id}">Edytuj</a>
+                        <a class="table-link" href="/admin/delete_institution/${institution.id}">Usuń</a>
                     </th>
                 </tr>
             </c:forEach>
+            <tr>
+                <th colspan="3">
+                    <a class="table-link" href="${pageContext.request.contextPath}/admin/add_institution">Dodaj nową instytucję</a>
+                </th>
+            </tr>
             </tbody>
         </table>
     </div>

@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import pl.coderslab.security.SpringDataUserDetailsService;
 
 
@@ -15,6 +16,11 @@ import pl.coderslab.security.SpringDataUserDetailsService;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    private final AuthenticationSuccessHandler successHandler;
+
+    public SecurityConfig(AuthenticationSuccessHandler successHandler) {
+        this.successHandler = successHandler;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -23,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/**").authenticated()
                 .antMatchers("/donation/**").authenticated()
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .and().formLogin().loginPage("/login").defaultSuccessUrl("/")
+                .and().formLogin().loginPage("/login").successHandler(successHandler)
                 .and().exceptionHandling().accessDeniedPage("/login")
                 .and().logout().logoutSuccessUrl("/");
 
