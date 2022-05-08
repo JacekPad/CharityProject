@@ -1848,3 +1848,7 @@ table {
   color: mediumblue;
   text-decoration: underline;
 }
+
+.hidden {
+  visibility: hidden;
+}

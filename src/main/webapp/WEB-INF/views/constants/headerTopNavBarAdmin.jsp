@@ -10,7 +10,7 @@
             <li class="logged-user">
                 Witaj <sec:authentication property="principal.username"/>
                 <ul class="dropdown">
-                    <li><a href="#">Profil</a></li>
+                    <li><a href="${pageContext.request.contextPath}/user/profile">Profil</a></li>
                     <li><a href="${pageContext.request.contextPath}/donation/show_list/#donations">Moje zbiórki</a></li>
                     <sec:authorize access="hasRole('ADMIN')">
                         <li><a href="${pageContext.request.contextPath}/admin/dashboard">Tryb administratora</a></li>

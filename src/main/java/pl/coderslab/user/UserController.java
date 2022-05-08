@@ -1,6 +1,7 @@
 package pl.coderslab.user;
 
-import org.springframework.security.core.parameters.P;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.coderslab.institution.InstitutionRepository;
+import pl.coderslab.security.CurrentUser;
 import pl.coderslab.security.UserService;
 
 import javax.validation.Valid;
@@ -21,11 +23,14 @@ public class UserController {
     private final UserRepository userRepository;
     private final InstitutionRepository institutionRepository;
     private final UserService userService;
+    private final BCryptPasswordEncoder passwordEncoder;
 
-    public UserController(UserRepository userRepository, InstitutionRepository institutionRepository, UserService userService) {
+
+    public UserController(UserRepository userRepository, InstitutionRepository institutionRepository, UserService userService, BCryptPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.institutionRepository = institutionRepository;
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -186,6 +191,56 @@ public class UserController {
         userToUnblock.setEnabled(1);
         userRepository.save(userToUnblock);
         return "redirect:/admin/user_list";
+    }
+
+
+    //    USER CRUD
+
+    @GetMapping("/user/profile")
+    public String userProfile(@AuthenticationPrincipal CurrentUser currentUser, Model model) {
+        FakeUser fakeUser = new FakeUser();
+        User loggedUser = currentUser.getUser();
+
+        fakeUser.setName(loggedUser.getName());
+        fakeUser.setSurname(loggedUser.getSurname());
+        fakeUser.setEmail(loggedUser.getEmail());
+        fakeUser.setId(loggedUser.getId());
+        model.addAttribute("fakeUser", fakeUser);
+        return "/user/userProfile";
+    }
+
+    @PostMapping("/user/profile")
+    public String userProfileEdit(@Valid FakeUser fakeUser, BindingResult result, @RequestParam String password2, @AuthenticationPrincipal CurrentUser currentUser, Model model) {
+        User loggedUser = currentUser.getUser();
+
+        if (result.hasErrors()) {
+            return "/user/userProfile";
+        }
+
+        //Check blank password
+        if (!fakeUser.getPassword().isEmpty() && fakeUser.getPassword().isBlank()) {
+            result.rejectValue("password", "error.emptyPassword", "Hasło nie może być pustymi znakami");
+            return "/user/userProfile";
+        }
+
+//        Check passwords match
+        if (!fakeUser.getPassword().equals(password2)) {
+            result.rejectValue("password", "error.passwordMatch", "Hasła nie są takie same");
+            return "/user/userProfile";
+        }
+
+        loggedUser.setEmail(fakeUser.getEmail());
+        loggedUser.setName(fakeUser.getName());
+        loggedUser.setSurname(fakeUser.getSurname());
+
+//        Empty password -> no change in password
+        if (fakeUser.getPassword().isEmpty()) {
+            userRepository.save(loggedUser);
+        } else {
+            loggedUser.setPassword(passwordEncoder.encode(fakeUser.getPassword()));
+            userRepository.save(loggedUser);
+        }
+        return "redirect:/user/profile";
     }
 
 }
