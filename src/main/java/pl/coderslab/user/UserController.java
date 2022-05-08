@@ -147,7 +147,7 @@ public class UserController {
         fakeUser.setName(originalUser.getName());
         fakeUser.setSurname(originalUser.getSurname());
         fakeUser.setEmail(originalUser.getEmail());
-        model.addAttribute("fakeUser",fakeUser);
+        model.addAttribute("fakeUser", fakeUser);
 
         return "/user/adminEditUser";
     }
@@ -171,4 +171,21 @@ public class UserController {
         userRepository.delete(userRepository.getById(id));
         return "redirect:/admin/user_list";
     }
+
+    @GetMapping("/admin/block_user/{id}")
+    public String blockUser(@PathVariable Long id) {
+        User userToBlock = userRepository.getById(id);
+        userToBlock.setEnabled(0);
+        userRepository.save(userToBlock);
+        return "redirect:/admin/user_list";
+    }
+
+    @GetMapping("/admin/unblock_user/{id}")
+    public String unblockUser(@PathVariable Long id) {
+        User userToUnblock = userRepository.getById(id);
+        userToUnblock.setEnabled(1);
+        userRepository.save(userToUnblock);
+        return "redirect:/admin/user_list";
+    }
+
 }

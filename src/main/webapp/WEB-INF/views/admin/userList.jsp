@@ -49,7 +49,12 @@
                     </th>
                     <th style="padding: 0">
                         <a class="table-link" href="/admin/edit_user/${user.id}">Edytuj</a>
-                        <a class="table-link" href="#">Zablokuj - TO DO FETCH</a>
+                        <c:if test="${user.enabled == 1}">
+                        <a class="table-link" href="/admin/block_user/${user.id}">Zablokuj</a>
+                        </c:if>
+                        <c:if test="${user.enabled == 0}">
+                            <a class="table-link" href="/admin/unblock_user/${user.id}">Odblokuj</a>
+                        </c:if>
                         <a class="table-link" href="/admin/delete_user/${user.id}">Usuń</a>
                     </th>
                 </tr>

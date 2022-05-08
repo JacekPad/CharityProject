@@ -40,4 +40,11 @@ public class Donation {
     private LocalTime pickUpTime;
     private String pickUpComment;
     private String phoneNumber;
+    private boolean pickedUp;
+    private LocalDate created;
+
+    @PrePersist
+    public void prePersist() {
+        created = LocalDate.now();
+    }
 }
