@@ -14,7 +14,6 @@ import pl.coderslab.security.CurrentUser;
 import pl.coderslab.security.UserService;
 
 import javax.validation.Valid;
-import java.util.List;
 
 
 @Controller
@@ -48,7 +47,8 @@ public class UserController {
     }
 
     @GetMapping("/admin/admin_list")
-    public String adminList(Model model) {
+    public String adminList(Model model, @AuthenticationPrincipal CurrentUser currentUser) {
+        model.addAttribute("currentUser",currentUser.getUser());
         model.addAttribute("admins", userRepository.findAllAdmins());
         return "/admin/adminList";
     }
@@ -70,22 +70,32 @@ public class UserController {
 
     @PostMapping("/admin/create_admin")
     public String createAdminForm(@Valid User user, BindingResult result, @RequestParam String password2) {
+        String password = user.getPassword();
 //        Check email already exists
-        List<String> allEmails = userRepository.findAllEmails();
-        for (String email : allEmails) {
-            if (email.equals(user.getEmail())) {
-                result.rejectValue("email", "error.sameEmail", "Użytkownik z takim e-mailem juz istnieje");
-                return "/admin/createAdmin";
-            }
+        if(userService.emailExists(user.getEmail())) {
+            result.rejectValue("email", "error.sameEmail", "Użytkownik z takim e-mailem juz istnieje");
+            return "/admin/createAdmin";
         }
         //Check blank password
-        if (user.getPassword().isBlank()) {
+        if (userService.blankPassword(password)) {
             result.rejectValue("password", "error.emptyPassword", "Hasło nie może być puste");
             return "/admin/createAdmin";
         }
 //        Check passwords match
-        if (!user.getPassword().equals(password2)) {
+        if (!userService.samePasswords(password,password2)) {
             result.rejectValue("password", "error.passwordMatch", "Hasła nie są takie same");
+            return "/admin/createAdmin";
+        }
+
+        //        Check password length
+        if (!userService.passwordLength(password)) {
+            result.rejectValue("password", "error.passwordLength", "Hasła musi mieć conajmniej 8 znaków");
+            return "/admin/createAdmin";
+        }
+
+//        Check password regex
+        if (!userService.passwordRegex(password)) {
+            result.rejectValue("password", "error.passwordRegex", "Hasło musi zawierać małą oraz dużą literę, cyfrę oraz jeden ze znaków '*/.@_-'");
             return "/admin/createAdmin";
         }
 //        Validation errors
@@ -116,15 +126,27 @@ public class UserController {
 
     @PostMapping("/admin/edit_admin")
     public String editAdminForm(@Valid FakeUser fakeUser, BindingResult result, @RequestParam String password2) {
-
+        String password = fakeUser.getPassword();
         //Check blank password
-        if (fakeUser.getPassword().isBlank()) {
+        if (userService.blankPassword(password)) {
             result.rejectValue("password", "error.emptyPassword", "Hasło nie może być puste");
             return "/admin/editAdmin";
         }
 //        Check passwords match
-        if (!fakeUser.getPassword().equals(password2)) {
+        if (!userService.samePasswords(password,password2)) {
             result.rejectValue("password", "error.passwordMatch", "Hasła nie są takie same");
+            return "/admin/editAdmin";
+        }
+
+        //        Check password length
+        if (!userService.passwordLength(password)) {
+            result.rejectValue("password", "error.passwordLength", "Hasła musi mieć conajmniej 8 znaków");
+            return "/admin/editAdmin";
+        }
+
+//        Check password regex
+        if (!userService.passwordRegex(password)) {
+            result.rejectValue("password", "error.passwordRegex", "Hasło musi zawierać małą oraz dużą literę, cyfrę oraz jeden ze znaków '*/.@_-'");
             return "/admin/editAdmin";
         }
 //        Validation errors
@@ -212,20 +234,31 @@ public class UserController {
     @PostMapping("/user/profile")
     public String userProfileEdit(@Valid FakeUser fakeUser, BindingResult result, @RequestParam String password2, @AuthenticationPrincipal CurrentUser currentUser, Model model) {
         User loggedUser = currentUser.getUser();
-
+        String password = fakeUser.getPassword();
         if (result.hasErrors()) {
             return "/user/userProfile";
         }
 
         //Check blank password
-        if (!fakeUser.getPassword().isEmpty() && fakeUser.getPassword().isBlank()) {
-            result.rejectValue("password", "error.emptyPassword", "Hasło nie może być pustymi znakami");
+        if (userService.blankPassword(password) && !userService.emptyPassword(fakeUser.getPassword())) {
+            result.rejectValue("password", "error.emptyPassword", "Hasło nie może być puste");
+            return "/user/userProfile";
+        }
+//        Check passwords match
+        if (!userService.samePasswords(password,password2)) {
+            result.rejectValue("password", "error.passwordMatch", "Hasła nie są takie same");
             return "/user/userProfile";
         }
 
-//        Check passwords match
-        if (!fakeUser.getPassword().equals(password2)) {
-            result.rejectValue("password", "error.passwordMatch", "Hasła nie są takie same");
+        //        Check password length
+        if (!userService.passwordLength(password)) {
+            result.rejectValue("password", "error.passwordLength", "Hasła musi mieć conajmniej 8 znaków");
+            return "/user/userProfile";
+        }
+
+//        Check password regex
+        if (!userService.passwordRegex(password)) {
+            result.rejectValue("password", "error.passwordRegex", "Hasło musi zawierać małą oraz dużą literę, cyfrę oraz jeden ze znaków '*/.@_-'");
             return "/user/userProfile";
         }
 
@@ -237,7 +270,7 @@ public class UserController {
         if (fakeUser.getPassword().isEmpty()) {
             userRepository.save(loggedUser);
         } else {
-            loggedUser.setPassword(passwordEncoder.encode(fakeUser.getPassword()));
+            loggedUser.setPassword(passwordEncoder.encode(password));
             userRepository.save(loggedUser);
         }
         return "redirect:/user/profile";

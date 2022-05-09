@@ -32,6 +32,7 @@
             </thead>
             <tbody>
             <c:forEach items="${admins}" var="admin">
+                <c:if test="${admin.id != currentUser.id}">
                 <tr>
                     <th>${admin.id}</th>
                     <th>${admin.email}</th>
@@ -44,6 +45,7 @@
                         <a class="table-link" href="/admin/delete_admin/${admin.id}">Usuń</a>
                     </th>
                 </tr>
+                </c:if>
             </c:forEach>
             <tr>
                 <th colspan="7">

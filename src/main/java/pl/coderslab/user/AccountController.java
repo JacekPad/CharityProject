@@ -9,16 +9,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.coderslab.security.UserServiceImpl;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 public class AccountController {
     private final UserServiceImpl userService;
-    private final UserRepository userRepository;
 
-    public AccountController(UserServiceImpl userService, UserRepository userRepository) {
+    public AccountController(UserServiceImpl userService) {
         this.userService = userService;
-        this.userRepository = userRepository;
     }
 
     @GetMapping("/registration")
@@ -28,26 +25,36 @@ public class AccountController {
     }
 
     @PostMapping("/registration")
-    public String registrationForm(@Valid User user, BindingResult result, Model model, @RequestParam String password2) {
-
+    public String registrationForm(@Valid User user, BindingResult result, @RequestParam String password2) {
+        String password = user.getPassword();
 //        Check email already exists
-        List<String> allEmails = userRepository.findAllEmails();
-        for (String email : allEmails) {
-            if (email.equals(user.getEmail())) {
-                result.rejectValue("email","error.sameEmail","Użytkownik z takim e-mailem juz istnieje");
-                return "/account/registration";
-            }
+        if(userService.emailExists(user.getEmail())) {
+            result.rejectValue("email", "error.sameEmail", "Użytkownik z takim e-mailem juz istnieje");
+            return "/account/registration";
         }
         //Check blank password
-        if (user.getPassword().isBlank()) {
+        if (userService.blankPassword(password)) {
             result.rejectValue("password", "error.emptyPassword", "Hasło nie może być puste");
             return "/account/registration";
         }
 //        Check passwords match
-        if (!user.getPassword().equals(password2)) {
+        if (!userService.samePasswords(password,password2)) {
             result.rejectValue("password", "error.passwordMatch", "Hasła nie są takie same");
             return "/account/registration";
         }
+
+//        Check password length
+        if (!userService.passwordLength(password)) {
+            result.rejectValue("password", "error.passwordLength", "Hasła musi mieć conajmniej 8 znaków");
+            return "/account/registration";
+        }
+
+//        Check password regex
+        if (!userService.passwordRegex(password)) {
+            result.rejectValue("password", "error.passwordRegex", "Hasło musi zawierać małą oraz dużą literę, cyfrę oraz jeden ze znaków '*/.@_-'");
+            return "/account/registration";
+        }
+
 //        Validation errors
         if (result.hasErrors()) {
             return "/account/registration";

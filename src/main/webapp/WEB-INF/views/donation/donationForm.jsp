@@ -27,27 +27,7 @@
     <div class="form--steps-container">
         <div class="form--steps-counter">Krok <span>1</span>/4</div>
 
-        <%--        TO DZIALA ALE NIE WYGLADA DOBRZE--%>
-
         <form:form modelAttribute="donation" method="post">
-            <%--        <div data-step="1" class="active">--%>
-            <%--            <h3>Zaznacz co chcesz oddać:</h3>--%>
-            <%--            <c:forEach items="${categories}" var="category"> --%>
-            <%--                <div class="form-group">--%>
-            <%--                    <label>--%>
-            <%--                        <span class="checkbox"></span>--%>
-            <%--                        <form:checkbox path="categories" value="${category.id}"/>--%>
-            <%--                        <span class="description">${category.name}</span>--%>
-            <%--                    </label>--%>
-            <%--                </div>--%>
-            <%--            </c:forEach>--%>
-            <%--            <div class="form-group form-group--buttons">--%>
-            <%--                <button type="button" class="btn next-step">Dalej</button>--%>
-            <%--            </div>--%>
-            <%--        </div>--%>
-
-            <%--        TO WYGLADA TAK JAK MA ALE NIE DZIALA--%>
-
         <div data-step="1" class="active">
             <h3>Zaznacz co chcesz oddać:</h3>
             <c:forEach items="${categories}" var="category">
