@@ -67,7 +67,10 @@
                 </div>
             </div>
             <div class="form-group form-group--buttons">
-                <a class="btn" href="/donation/show_list/#donations">Powrót</a>
+                <c:if test="${donation.pickedUp == false}">
+                <a class="btn" href="/donation/archive/${donation.id}">Zarchiwizuj tę donacje</a>
+                </c:if>
+                <a class="btn" href="${pageContext.request.contextPath}/donation/show_list/#donations">Powrót</a>
             </div>
         </div>
     </div>

@@ -23,7 +23,7 @@
                 <c:forEach items="${donations}" var="donation">
                     <tr>
                         <th>
-                                ${donation.institution.name} <br>
+                                ${donation.institution.name}<br>
                                 ${donation.institution.description}
                         </th>
                         <th>${donation.created}</th>
@@ -35,7 +35,9 @@
                                 Odebrane
                             </c:if>
                         </th>
-                        <th>${donation.pickUpDate} ${donation.pickUpTime}</th>
+                        <th>${donation.pickUpDate}<br>
+                            ${donation.pickUpTime}
+                        </th>
                         <th>
                             <a class="table-link" href="/donation/donation_details/${donation.id}/#summary">Szczegóły donacji</a>
                         </th>

@@ -1,5 +1,6 @@
 package pl.coderslab.donation;
 
+import jdk.jfr.Timespan;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

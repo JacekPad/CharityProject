@@ -14,6 +14,9 @@ import pl.coderslab.security.CurrentUser;
 import pl.coderslab.user.User;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 @Controller
 @RequestMapping("/donation")
@@ -61,4 +64,14 @@ public class DonationController {
         return "/donation/donationDetails";
     }
 
+    @GetMapping("/archive/{id}")
+    public String archiveDonation(@PathVariable Long id) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        Donation donation = donationRepository.getById(id);
+        donation.setPickedUp(true);
+        donation.setPickUpDate(LocalDate.now());
+        donation.setPickUpTime(LocalTime.parse(LocalTime.now().format(formatter)));
+        donationRepository.save(donation);
+        return "redirect:/donation/show_list#donations";
+    }
 }
