@@ -16,6 +16,6 @@ public class VerificationToken {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String tokenUUID;
-    @OneToOne
+    @ManyToOne
     User user;
 }

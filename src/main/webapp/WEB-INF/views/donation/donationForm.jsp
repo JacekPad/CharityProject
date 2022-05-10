@@ -4,7 +4,7 @@
 
 <jsp:include page="../constants/addDonationHeader.jsp"/>
 
-<section class="form--steps">
+<section id="donation" class="form--steps">
     <div class="form--steps-instructions">
         <div class="form--steps-container">
             <h3>Ważne!</h3>

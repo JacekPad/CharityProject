@@ -52,7 +52,7 @@
     <a href="${pageContext.request.contextPath}/registration" class="btn btn--large">Załóż konto</a>
 </sec:authorize>
     <sec:authorize access="isAuthenticated()">
-        <a href="${pageContext.request.contextPath}/donation/add" class="btn btn--large">Oddaj rzeczy</a>
+        <a href="${pageContext.request.contextPath}/donation/add#donation" class="btn btn--large">Oddaj rzeczy</a>
     </sec:authorize>
 </section>
 
