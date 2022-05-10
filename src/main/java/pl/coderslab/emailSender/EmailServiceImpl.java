@@ -1,4 +1,4 @@
-package pl.coderslab.mailSender;
+package pl.coderslab.emailSender;
 
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;

@@ -1,4 +1,4 @@
-package pl.coderslab.mailSender;
+package pl.coderslab.emailSender;
 
 public interface EmailService {
 

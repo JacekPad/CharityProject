@@ -40,9 +40,13 @@ public class DonationController {
         return "/donation/donationForm";
     }
 
-    //    Validation later?
     @PostMapping("/add")
-    public String addDonationConfirmation(@Valid Donation donation, BindingResult result, Model model) {
+    public String addDonationConfirmation(@Valid Donation donation, BindingResult result, @AuthenticationPrincipal CurrentUser currentUser) {
+
+        if(result.hasErrors()) {
+            return "/donation/donationForm";
+        }
+        donation.setUser(currentUser.getUser());
         donationRepository.save(donation);
         return "redirect:/donation/confirmation";
     }
