@@ -6,6 +6,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import pl.coderslab.mailSender.EmailService;
 import pl.coderslab.security.UserServiceImpl;
 
 import javax.validation.Valid;
@@ -13,9 +15,11 @@ import javax.validation.Valid;
 @Controller
 public class AccountController {
     private final UserServiceImpl userService;
+    private final EmailService emailService;
 
-    public AccountController(UserServiceImpl userService) {
+    public AccountController(UserServiceImpl userService, EmailService emailService) {
         this.userService = userService;
+        this.emailService = emailService;
     }
 
     @GetMapping("/registration")
