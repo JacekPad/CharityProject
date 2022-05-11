@@ -18,7 +18,7 @@
 
 <section class="login-page">/
     <h2>Edytuj dane użytkownika</h2>
-    <form:form modelAttribute="fakeUser" action="/admin/edit_user" method="post">
+    <form:form modelAttribute="user" action="/admin/edit_user" method="post">
         <div class="form-group">
             <form:input path="email" placeholder="Email"/>
             <form:errors path="email"/>

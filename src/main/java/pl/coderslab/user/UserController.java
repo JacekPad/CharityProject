@@ -115,18 +115,18 @@ public class UserController {
     @GetMapping("/admin/edit_admin/{id}")
     public String editAdmin(@PathVariable Long id, Model model) {
         User admin = userRepository.getById(id);
-        FakeUser fakeUser = new FakeUser();
-        fakeUser.setEmail(admin.getEmail());
-        fakeUser.setName(admin.getName());
-        fakeUser.setSurname(admin.getSurname());
-        fakeUser.setId(admin.getId());
-        model.addAttribute("fakeUser", fakeUser);
+        User user = new User();
+        user.setEmail(admin.getEmail());
+        user.setName(admin.getName());
+        user.setSurname(admin.getSurname());
+        user.setId(admin.getId());
+        model.addAttribute("user", user);
         return "/admin/editAdmin";
     }
 
     @PostMapping("/admin/edit_admin")
-    public String editAdminForm(@Valid FakeUser fakeUser, BindingResult result, @RequestParam String password2) {
-        String password = fakeUser.getPassword();
+    public String editAdminForm(@Valid User user, BindingResult result, @RequestParam String password2) {
+        String password = user.getPassword();
         //Check blank password
         if (userService.blankPassword(password)) {
             result.rejectValue("password", "error.emptyPassword", "Hasło nie może być puste");
@@ -153,11 +153,11 @@ public class UserController {
         if (result.hasErrors()) {
             return "/admin/editAdmin";
         }
-        User editedAdmin = userRepository.getById(fakeUser.getId());
-        editedAdmin.setName(fakeUser.getName());
-        editedAdmin.setSurname(fakeUser.getSurname());
-        editedAdmin.setEmail(fakeUser.getEmail());
-        editedAdmin.setPassword(fakeUser.getPassword());
+        User editedAdmin = userRepository.getById(user.getId());
+        editedAdmin.setName(user.getName());
+        editedAdmin.setSurname(user.getSurname());
+        editedAdmin.setEmail(user.getEmail());
+        editedAdmin.setPassword(user.getPassword());
         userService.saveAsAdmin(editedAdmin);
         return "redirect:/admin/admin_list";
     }
@@ -169,26 +169,26 @@ public class UserController {
     public String editUser(@PathVariable Long id, Model model) {
         User originalUser = userRepository.getById(id);
 
-        FakeUser fakeUser = new FakeUser();
-        fakeUser.setId(originalUser.getId());
-        fakeUser.setName(originalUser.getName());
-        fakeUser.setSurname(originalUser.getSurname());
-        fakeUser.setEmail(originalUser.getEmail());
-        model.addAttribute("fakeUser", fakeUser);
+        User user = new User();
+        user.setId(originalUser.getId());
+        user.setName(originalUser.getName());
+        user.setSurname(originalUser.getSurname());
+        user.setEmail(originalUser.getEmail());
+        model.addAttribute("user", user);
 
         return "/user/adminEditUser";
     }
 
     @PostMapping("/admin/edit_user")
-    public String editUserForm(@Valid FakeUser fakeUser, BindingResult result) {
+    public String editUserForm(@Valid User user, BindingResult result) {
         if (result.hasErrors()) {
             return "/user/adminEditUser";
         }
 
-        User editedUser = userRepository.getById(fakeUser.getId());
-        editedUser.setName(fakeUser.getName());
-        editedUser.setSurname(fakeUser.getSurname());
-        editedUser.setEmail(fakeUser.getEmail());
+        User editedUser = userRepository.getById(user.getId());
+        editedUser.setName(user.getName());
+        editedUser.setSurname(user.getSurname());
+        editedUser.setEmail(user.getEmail());
         userRepository.save(editedUser);
         return "redirect:/admin/user_list";
     }
@@ -220,27 +220,27 @@ public class UserController {
 
     @GetMapping("/user/profile")
     public String userProfile(@AuthenticationPrincipal CurrentUser currentUser, Model model) {
-        FakeUser fakeUser = new FakeUser();
+        User user = new User();
         User loggedUser = currentUser.getUser();
 
-        fakeUser.setName(loggedUser.getName());
-        fakeUser.setSurname(loggedUser.getSurname());
-        fakeUser.setEmail(loggedUser.getEmail());
-        fakeUser.setId(loggedUser.getId());
-        model.addAttribute("fakeUser", fakeUser);
+        user.setName(loggedUser.getName());
+        user.setSurname(loggedUser.getSurname());
+        user.setEmail(loggedUser.getEmail());
+        user.setId(loggedUser.getId());
+        model.addAttribute("user", user);
         return "/user/userProfile";
     }
 
     @PostMapping("/user/profile")
-    public String userProfileEdit(@Valid FakeUser fakeUser, BindingResult result, @RequestParam String password2, @AuthenticationPrincipal CurrentUser currentUser, Model model) {
+    public String userProfileEdit(@Valid User user, BindingResult result, @RequestParam String password2, @AuthenticationPrincipal CurrentUser currentUser, Model model) {
         User loggedUser = currentUser.getUser();
-        String password = fakeUser.getPassword();
+        String password = user.getPassword();
         if (result.hasErrors()) {
             return "/user/userProfile";
         }
 
         //Check blank password
-        if (userService.blankPassword(password) && !userService.emptyPassword(fakeUser.getPassword())) {
+        if (userService.blankPassword(password) && !userService.emptyPassword(user.getPassword())) {
             result.rejectValue("password", "error.emptyPassword", "Hasło nie może być puste");
             return "/user/userProfile";
         }
@@ -262,12 +262,12 @@ public class UserController {
             return "/user/userProfile";
         }
 
-        loggedUser.setEmail(fakeUser.getEmail());
-        loggedUser.setName(fakeUser.getName());
-        loggedUser.setSurname(fakeUser.getSurname());
+        loggedUser.setEmail(user.getEmail());
+        loggedUser.setName(user.getName());
+        loggedUser.setSurname(user.getSurname());
 
 //        Empty password -> no change in password
-        if (fakeUser.getPassword().isEmpty()) {
+        if (user.getPassword().isEmpty()) {
             userRepository.save(loggedUser);
         } else {
             loggedUser.setPassword(passwordEncoder.encode(password));

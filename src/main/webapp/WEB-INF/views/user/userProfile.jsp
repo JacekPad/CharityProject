@@ -18,7 +18,7 @@
 
 <section class="login-page">
     <h2>Zmień swoje dane</h2>
-    <form:form modelAttribute="fakeUser" method="post">
+    <form:form modelAttribute="user" method="post">
         <div class="form-group">
             <form:input path="email" placeholder="Email"/>
             <form:errors path="email"/>

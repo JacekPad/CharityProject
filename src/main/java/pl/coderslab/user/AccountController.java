@@ -174,8 +174,6 @@ public class AccountController {
     @PostMapping("/reset_password")
     public String resetPasswordForm(@Valid User user, BindingResult result, @RequestParam String password2, @RequestParam String tokenUUID, Model model) {
         String password = user.getPassword();
-        System.out.println(user.getPassword());
-        System.out.println(tokenUUID);
         //Check blank password
         if (userService.blankPassword(password)) {
             result.rejectValue("password", "error.emptyPassword", "Hasło nie może być puste");
@@ -203,7 +201,6 @@ public class AccountController {
             return "/passwordReset/resetNewPassword";
         }
 
-        System.out.println("gud?");
         VerificationToken token = tokenRepository.findByTokenUUID(tokenUUID);
         User userPasswordReset = token.getUser();
         tokenRepository.delete(token);

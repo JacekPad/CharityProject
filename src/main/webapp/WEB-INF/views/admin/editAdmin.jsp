@@ -18,7 +18,7 @@
 
 <section class="login-page">
     <h2>Stwórz nowego administratora</h2>
-    <form:form modelAttribute="fakeUser" action="/admin/edit_admin" method="post">
+    <form:form modelAttribute="user" action="/admin/edit_admin" method="post">
         <div class="form-group">
             <form:input path="email" placeholder="Email"/>
             <form:errors path="email"/>
