@@ -23,7 +23,7 @@ ChairtyProject is a website that allows user to donate clothing, toys or other a
 - MYSQL
 
 ##### Technology usage:
-- Spring security to mange user's log-in details,
+- Spring security to manage user's log-in details,
 - MYSQL database to store user's and site's data,
 - Hibernate to communicate with the database and create easy access to it's contents,
 - Maven to set dependencies and create initial project,
