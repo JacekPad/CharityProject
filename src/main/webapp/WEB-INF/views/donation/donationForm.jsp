@@ -4,7 +4,7 @@
 
 <jsp:include page="../constants/addDonationHeader.jsp"/>
 
-<section class="form--steps">
+<section id="donation" class="form--steps">
     <div class="form--steps-instructions">
         <div class="form--steps-container">
             <h3>Ważne!</h3>
@@ -27,27 +27,7 @@
     <div class="form--steps-container">
         <div class="form--steps-counter">Krok <span>1</span>/4</div>
 
-        <%--        TO DZIALA ALE NIE WYGLADA DOBRZE--%>
-
         <form:form modelAttribute="donation" method="post">
-            <%--        <div data-step="1" class="active">--%>
-            <%--            <h3>Zaznacz co chcesz oddać:</h3>--%>
-            <%--            <c:forEach items="${categories}" var="category"> --%>
-            <%--                <div class="form-group">--%>
-            <%--                    <label>--%>
-            <%--                        <span class="checkbox"></span>--%>
-            <%--                        <form:checkbox path="categories" value="${category.id}"/>--%>
-            <%--                        <span class="description">${category.name}</span>--%>
-            <%--                    </label>--%>
-            <%--                </div>--%>
-            <%--            </c:forEach>--%>
-            <%--            <div class="form-group form-group--buttons">--%>
-            <%--                <button type="button" class="btn next-step">Dalej</button>--%>
-            <%--            </div>--%>
-            <%--        </div>--%>
-
-            <%--        TO WYGLADA TAK JAK MA ALE NIE DZIALA--%>
-
         <div data-step="1" class="active">
             <h3>Zaznacz co chcesz oddać:</h3>
             <c:forEach items="${categories}" var="category">
@@ -155,15 +135,13 @@
                     <li>
                         <span class="icon icon-bag"></span>
                         <span id="summaryQuantity" class="summary--text">
-                                Java script ?
+                                Wpisz ilość worków
                             </span>
                     </li>
 
                     <li>
                         <span class="icon icon-hand"></span>
-                        <span id="summaryInstitution" class="summary--text">
-                                Java script?
-                            </span>
+                        <span id="summaryInstitution" class="summary--text">Wybierz fundacje</span>
                     </li>
                 </ul>
                 </div>
@@ -171,19 +149,19 @@
                     <div class="form-section--column">
                         <h4>Adres odbioru:</h4>
                         <ul>
-                            <li id="summaryStreet">Ulica JS?</li>
-                            <li id="summaryCity">Miasto JS?</li>
-                            <li id="summaryZipCode">ZIP CODE JS?</li>
-                            <li id="summaryPhone">PHONE JS?</li>
+                            <li id="summaryStreet"></li>
+                            <li id="summaryCity"></li>
+                            <li id="summaryZipCode"></li>
+                            <li id="summaryPhone"></li>
                         </ul>
                     </div>
 
                     <div class="form-section--column">
                         <h4>Termin odbioru:</h4>
                         <ul>
-                            <li id="summaryDate">DATA JS?</li>
-                            <li id="summaryTime">TIME JS?</li>
-                            <li id="summaryComment">COMMENTS JS?</li>
+                            <li id="summaryDate"></li>
+                            <li id="summaryTime"></li>
+                            <li id="summaryComment"></li>
                         </ul>
                     </div>
                 </div>

@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:include page="../views/constants/headerMain.jsp"/>
@@ -22,7 +23,7 @@
     </div>
 </section>
 
-<section class="steps">
+<section id="steps" class="steps">
     <h2>Wystarczą 4 proste kroki</h2>
 
     <div class="steps--container">
@@ -47,11 +48,15 @@
             <p>kurier przyjedzie w dogodnym terminie</p>
         </div>
     </div>
-
-    <a href="#" class="btn btn--large">Załóż konto</a>
+<sec:authorize access="!isAuthenticated()">
+    <a href="${pageContext.request.contextPath}/registration" class="btn btn--large">Załóż konto</a>
+</sec:authorize>
+    <sec:authorize access="isAuthenticated()">
+        <a href="${pageContext.request.contextPath}/donation/add#donation" class="btn btn--large">Oddaj rzeczy</a>
+    </sec:authorize>
 </section>
 
-<section class="about-us">
+<section id="about" class="about-us">
     <div class="about-us--text">
         <h2>O nas</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas vitae animi rem pariatur incidunt libero
@@ -62,7 +67,7 @@
     </div>
 </section>
 
-<section class="help">
+<section id="help" class="help">
     <h2>Komu pomagamy?</h2>
 
     <!-- SLIDE 1 -->
