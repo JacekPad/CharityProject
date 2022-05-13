@@ -31,4 +31,4 @@ ChairtyProject is a website that allows user to donate clothing, toys or other a
 - JavaServerPages for the viewpage logic,
 - MailSender to send activation and forgot password mails.
 ### WEBSITE:
-![screencapture-localhost-8080-user-profile-2022-05-13-23_39_17](https://user-images.githubusercontent.com/98467969/168393026-5ca72cbf-629d-477a-93d1-b5ff41f44aa1.png | width = 50%)
+![screencapture-localhost-8080-user-profile-2022-05-13-23_39_17](https://user-images.githubusercontent.com/98467969/168393026-5ca72cbf-629d-477a-93d1-b5ff41f44aa1.png | width = 50)
