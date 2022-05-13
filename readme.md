@@ -37,7 +37,11 @@ ChairtyProject is a website that allows user to donate clothing, toys or other a
 <img src="https://user-images.githubusercontent.com/98467969/168393700-b2cff253-6395-445b-aa77-eaacf77d7c4c.png" height="300" width="300">
 
  -->
-
+<p float="left"
+   Test1
+   Test2
+   Test3
+   </p>
 <p float="left">
  Mainpage
   <img src="https://user-images.githubusercontent.com/98467969/168393291-a25d891a-dd24-4661-a757-c98cbf38d88e.png" height="300 width="200" />
