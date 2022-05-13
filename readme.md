@@ -31,18 +31,18 @@ ChairtyProject is a website that allows user to donate clothing, toys or other a
 - JavaServerPages for the viewpage logic,
 - MailSender to send activation and forgot password mails.
 ### website screenshots:
-
+<!-- 
 <img src="https://user-images.githubusercontent.com/98467969/168393291-a25d891a-dd24-4661-a757-c98cbf38d88e.png" height="300" width="300">
 <img src="https://user-images.githubusercontent.com/98467969/168393656-4420de6c-b244-439f-ad5e-d4894d0efbc2.png" height="300" width="300">
 <img src="https://user-images.githubusercontent.com/98467969/168393700-b2cff253-6395-445b-aa77-eaacf77d7c4c.png" height="300" width="300">
 
-
+ -->
 
 
 
 test
 <p float="left">
-  <img src="https://user-images.githubusercontent.com/98467969/168393291-a25d891a-dd24-4661-a757-c98cbf38d88e.png" width="100" />
-  <img src="https://user-images.githubusercontent.com/98467969/168393656-4420de6c-b244-439f-ad5e-d4894d0efbc2.png" width="100" /> 
+  <img src="https://user-images.githubusercontent.com/98467969/168393291-a25d891a-dd24-4661-a757-c98cbf38d88e.png" width="200" />
+  <img src="https://user-images.githubusercontent.com/98467969/168393656-4420de6c-b244-439f-ad5e-d4894d0efbc2.png" width="200" /> 
   <img src="https://user-images.githubusercontent.com/98467969/168393700-b2cff253-6395-445b-aa77-eaacf77d7c4c.png" width="100" />
 </p>
